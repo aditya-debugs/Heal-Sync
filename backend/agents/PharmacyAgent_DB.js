@@ -207,6 +207,9 @@ class PharmacyAgent {
   }
 
   async onOutbreakAlert(disease, primaryMedicine, event) {
+    // Add delay to prevent parallel saves (increased for more agents)
+    await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 500));
+    
     // Reload entity
     this.entity = await Entity.findById(this.entityId);
     if (!this.entity) return;

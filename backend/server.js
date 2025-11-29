@@ -8,8 +8,7 @@ const { Server } = require('socket.io');
 const { connectDB, getConnectionStatus } = require('./config/database');
 
 // Routes
-const worldState = require('./worldState'); // Keep for now as fallback
-const { initAgents, setLogSender } = require('./agents/initAgents_DB'); // Use MongoDB version
+const { initAgents, setLogSender } = require('./agents/initAgents_DB'); // MongoDB version
 const stateRoutes = require('./routes/stateRoutes');
 const authRoutes = require('./routes/authRoutes');
 const entityRoutes = require('./routes/entityRoutes');
@@ -38,7 +37,7 @@ setLogSender(sendLog);
 app.use('/api/auth', authRoutes); // Authentication & Registration
 app.use('/api/entities', entityRoutes); // Entity management
 app.use('/api/analytics', analyticsRoutes); // Analytics & Heatmap
-app.use('/api', stateRoutes(worldState, getLogs, sendLog)); // Legacy state routes
+app.use('/api', stateRoutes(null, getLogs, sendLog)); // State routes (MongoDB-powered)
 
 // Basic health check
 app.get('/', (req, res) => {

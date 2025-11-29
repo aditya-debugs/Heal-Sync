@@ -272,8 +272,8 @@ class HospitalAgent {
   }
 
   async onOutbreakAlert(disease, event) {
-    // Add delay to prevent parallel saves
-    await new Promise(resolve => setTimeout(resolve, Math.random() * 500));
+    // Add delay to prevent parallel saves (increased for more agents)
+    await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 500));
     
     // Reload entity to get latest data
     this.entity = await Entity.findById(this.entityId);
