@@ -72,11 +72,26 @@ async function startServer() {
   console.log('🚀 Initializing AI agents...');
   await initAgents();
   
-  // Start HTTP server
+  // Start HTTP server with error handling
   server.listen(PORT, () => {
     console.log(`✅ Backend server listening on port ${PORT}`);
     console.log(`📊 Database: ${getConnectionStatus() ? 'Connected' : 'Fallback Mode'}`);
     console.log(`🤖 Agents: Running`);
+  });
+
+  // Handle port already in use error
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      console.error(`\n❌ Port ${PORT} is already in use!`);
+      console.log('\n💡 Fix this by running:');
+      console.log(`   lsof -ti:${PORT} | xargs kill -9`);
+      console.log('   OR');
+      console.log('   npm run kill-port\n');
+      process.exit(1);
+    } else {
+      console.error('❌ Server error:', error);
+      process.exit(1);
+    }
   });
 }
 
