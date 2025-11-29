@@ -1,6 +1,7 @@
 // frontend/src/pages/PublicDashboard.jsx
 import { useEffect, useState } from "react";
 import HealthHeatmap from "../components/HealthHeatmap";
+import DiseasePrevalenceHeatmap from "../components/DiseasePrevalenceHeatmap";
 import ActiveAlerts from "../components/ActiveAlerts";
 import CityStatistics from "../components/CityStatistics";
 import LoginModal from "../components/LoginModal";
@@ -95,6 +96,9 @@ function PublicDashboard() {
 
         {/* Interactive Health Heatmap */}
         <HealthHeatmap cityData={cityData} />
+
+        {/* Disease Prevalence Heatmap */}
+        <DiseasePrevalenceHeatmap />
 
         {/* Active Health Alerts */}
         <ActiveAlerts cityData={cityData} />
